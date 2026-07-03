@@ -1,0 +1,237 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 64px;
+  border-bottom: 1px solid #DAD5C8;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: #0F1410;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 13px;
+}
+
+.topbar nav a {
+  color: #6E6A5E;
+  letter-spacing: 0.02em;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.topbar nav a:hover,
+.topbar nav a.is-active {
+  color: #0F1410;
+  border-bottom-color: #E8623D;
+}
+
+.topbar nav .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  background: #0F1410;
+  color: #F7F5EF;
+  font-weight: 600;
+  border-bottom: none;
+  transition: background 0.15s;
+}
+
+.topbar nav .nav-cta:hover {
+  background: #E8623D;
+  border-bottom: none;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+}
+
+.auth-intro { max-width: 360px; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #E8623D;
+  margin-bottom: 20px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: #E8623D;
+}
+
+.auth-intro h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  margin-bottom: 16px;
+  color: #0F1410;
+}
+
+.auth-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #6E6A5E;
+}
+
+.switch {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #DAD5C8;
+  font-size: 14px;
+  color: #6E6A5E;
+}
+
+.switch a {
+  color: #0F1410;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #E8623D;
+  text-underline-offset: 3px;
+}
+
+.switch a:hover { color: #E8623D; }
+
+.auth-card {
+  background: #F7F5EF;
+  border: 1px solid #0F1410;
+  padding: 40px;
+  position: relative;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 8px; left: 8px; right: -8px; bottom: -8px;
+  border: 1px solid #DAD5C8;
+  z-index: -1;
+}
+
+.global-error {
+  font-size: 13px;
+  color: #B23A22;
+  border-left: 2px solid #B23A22;
+  background: rgba(178, 58, 34, 0.06);
+  padding: 8px 14px;
+  margin-bottom: 20px;
+}
+
+.field { margin-bottom: 20px; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6E6A5E;
+  margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #0F1410;
+  background: #F7F5EF;
+  border: 1px solid #DAD5C8;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.field input:focus,
+.field select:focus { border-color: #E8623D; }
+.field input::placeholder { color: #ACA89B; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid #0F1410;
+  background: #0F1410;
+  color: #F7F5EF;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+}
+
+.btn:hover {
+  background: #E8623D;
+  border-color: #E8623D;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+footer {
+  border-top: 1px solid #DAD5C8;
+  padding: 20px 64px;
+  font-size: 12px;
+  color: #6E6A5E;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 820px) {
+  .auth-grid { grid-template-columns: 1fr; gap: 40px; }
+  .auth-card::before { display: none; }
+  main { padding: 48px 24px; }
+}
+
+@media (max-width: 600px) {
+  .topbar { padding: 16px 24px; }
+  .auth-card { padding: 24px; }
+  footer { padding: 16px 24px; }
+}
