@@ -60,7 +60,7 @@ public class PartService {
         part.setCategory(request.getCategory());
         part.setStockQuantity(request.getStockQuantity());
         part.setIsAvailable(request.getIsAvailable());
-        //part.setImageUrl(request.getImageUrl());
+        part.setImageUrl(request.getImageUrl());
 
         Part updated = partRepository.save(part);
         return PartMapper.toResponse(updated);

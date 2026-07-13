@@ -18,10 +18,11 @@ public class PartRequest {
     @NotNull(message = "Availability status is required")
     private Boolean isAvailable;
 
+    private String imageUrl;
+
     public PartRequest() {
     }
 
-    // Getters and setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -33,4 +34,7 @@ public class PartRequest {
 
     public Boolean getIsAvailable() { return isAvailable; }
     public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

@@ -47,7 +47,6 @@ public class Part {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

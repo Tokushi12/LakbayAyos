@@ -11,6 +11,7 @@ public class PartMapper {
         part.setCategory(request.getCategory());
         part.setStockQuantity(request.getStockQuantity());
         part.setIsAvailable(request.getIsAvailable());
+        part.setImageUrl(request.getImageUrl());
         return part;
     }
 
@@ -21,6 +22,7 @@ public class PartMapper {
                 part.getCategory(),
                 part.getStockQuantity(),
                 part.getIsAvailable(),
+                part.getImageUrl(),
                 part.getCreatedAt(),
                 part.getUpdatedAt()
         );
