@@ -9,6 +9,7 @@ import {
   updatePartAvailability,
   updatePartStock,
 } from '../api/partsApi'
+import { uploadPartImage } from '../api/storageApi'
 import './AdminInventoryPage.css'
 
 export default function AdminInventoryPage() {
@@ -24,6 +25,9 @@ export default function AdminInventoryPage() {
   const [category, setCategory] = useState('')
   const [stockQuantity, setStockQuantity] = useState('')
   const [isAvailable, setIsAvailable] = useState(true)
+  const [imageUrl, setImageUrl] = useState('')
+  const [imageFile, setImageFile] = useState(null)
+  const [uploadingImage, setUploadingImage] = useState(false)
   const [formError, setFormError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -50,6 +54,8 @@ export default function AdminInventoryPage() {
     setCategory('')
     setStockQuantity('')
     setIsAvailable(true)
+    setImageUrl('')
+    setImageFile(null)
     setFormError('')
     setShowForm(true)
   }
@@ -60,8 +66,17 @@ export default function AdminInventoryPage() {
     setCategory(part.category)
     setStockQuantity(String(part.stockQuantity))
     setIsAvailable(part.isAvailable)
+    setImageUrl(part.imageUrl || '')
+    setImageFile(null)
     setFormError('')
     setShowForm(true)
+  }
+
+  function handleImageFileChange(e) {
+    const file = e.target.files[0]
+    if (!file) return
+    setImageFile(file)
+    setImageUrl(URL.createObjectURL(file)) // local preview only
   }
 
   async function handleFormSubmit(e) {
@@ -69,14 +84,25 @@ export default function AdminInventoryPage() {
     setFormError('')
     setSubmitting(true)
 
-    const payload = {
-      name,
-      category,
-      stockQuantity: Number(stockQuantity),
-      isAvailable,
-    }
-
     try {
+      let finalImageUrl = imageUrl.trim() || null
+
+      // If a new file was picked, upload it to Supabase Storage first
+      // and use the resulting public URL instead of the local preview.
+      if (imageFile) {
+        setUploadingImage(true)
+        finalImageUrl = await uploadPartImage(imageFile)
+        setUploadingImage(false)
+      }
+
+      const payload = {
+        name,
+        category,
+        stockQuantity: Number(stockQuantity),
+        isAvailable,
+        imageUrl: finalImageUrl,
+      }
+
       if (editingId) {
         await updatePart(editingId, payload)
       } else {
@@ -85,6 +111,7 @@ export default function AdminInventoryPage() {
       setShowForm(false)
       await loadParts()
     } catch (err) {
+      setUploadingImage(false)
       setFormError(err.message || 'Failed to save part.')
     } finally {
       setSubmitting(false)
@@ -150,6 +177,7 @@ export default function AdminInventoryPage() {
           <table className="parts-table">
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Category</th>
                 <th>Stock</th>
@@ -160,6 +188,13 @@ export default function AdminInventoryPage() {
             <tbody>
               {parts.map((part) => (
                 <tr key={part.id}>
+                  <td>
+                    {part.imageUrl ? (
+                      <img src={part.imageUrl} alt={part.name} className="part-thumb" />
+                    ) : (
+                      <div className="part-thumb part-thumb-empty" />
+                    )}
+                  </td>
                   <td>{part.name}</td>
                   <td>{part.category}</td>
                   <td>
@@ -238,10 +273,24 @@ export default function AdminInventoryPage() {
                 />
               </div>
 
+              <div className="field">
+                <label htmlFor="imageFile">Photo</label>
+                <input
+                  type="file"
+                  id="imageFile"
+                  accept="image/*"
+                  onChange={handleImageFileChange}
+                />
+                {imageUrl && (
+                  <img src={imageUrl} alt="Preview" className="image-preview" />
+                )}
+              </div>
+
               <div className="field checkbox-field">
                 <label>
                   <input
                     type="checkbox"
+                    className="small-checkbox"
                     checked={isAvailable}
                     onChange={(e) => setIsAvailable(e.target.checked)}
                   />
@@ -254,7 +303,7 @@ export default function AdminInventoryPage() {
                   Cancel
                 </button>
                 <button type="submit" className="btn" disabled={submitting}>
-                  {submitting ? 'Saving...' : 'Save'}
+                  {uploadingImage ? 'Uploading photo...' : submitting ? 'Saving...' : 'Save'}
                 </button>
               </div>
             </form>
