@@ -162,6 +162,11 @@ export default function UserPartsPage() {
             <div className="parts-grid">
               {parts.map((part) => (
                 <div key={part.id} className="part-card">
+                  {part.imageUrl ? (
+                    <img src={part.imageUrl} alt={part.name} className="part-card-image" />
+                  ) : (
+                    <div className="part-card-image part-card-image-empty" />
+                  )}
                   <h3>{part.name}</h3>
                   <p className="part-category">{part.category}</p>
                   <p className="part-stock">{part.stockQuantity} in stock</p>

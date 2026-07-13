@@ -19,6 +19,8 @@ public class Part {
 
     private Boolean isAvailable;
 
+    private String imageUrl;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -26,11 +28,12 @@ public class Part {
     public Part() {
     }
 
-    public Part(String name, String category, Integer stockQuantity, Boolean isAvailable) {
+    public Part(String name, String category, Integer stockQuantity, Boolean isAvailable, String imageUrl) {
         this.name = name;
         this.category = category;
         this.stockQuantity = stockQuantity;
         this.isAvailable = isAvailable;
+        this.imageUrl = imageUrl;
     }
 
     @PrePersist
@@ -59,6 +62,9 @@ public class Part {
 
     public Boolean getIsAvailable() { return isAvailable; }
     public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
