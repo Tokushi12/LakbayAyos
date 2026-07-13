@@ -8,6 +8,7 @@ public class PartResponse {
     private String category;
     private Integer stockQuantity;
     private Boolean isAvailable;
+    private String imageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -15,17 +16,17 @@ public class PartResponse {
     }
 
     public PartResponse(Long id, String name, String category, Integer stockQuantity,
-                        Boolean isAvailable, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                        Boolean isAvailable, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.stockQuantity = stockQuantity;
         this.isAvailable = isAvailable;
+        this.imageUrl = imageUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -40,6 +41,9 @@ public class PartResponse {
 
     public Boolean getIsAvailable() { return isAvailable; }
     public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
