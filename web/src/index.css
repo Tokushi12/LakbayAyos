@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -6,9 +6,9 @@ html, body, #root { height: 100%; }
 
 body {
   min-height: 100vh;
-  background: #F7F5EF;
-  color: #0F1410;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0D0D0D;
+  color: #F5F5F5;
+  font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -17,6 +17,6 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
-  outline: 2px solid #E8623D;
+  outline: 2px solid #E10600;
   outline-offset: 2px;
 }

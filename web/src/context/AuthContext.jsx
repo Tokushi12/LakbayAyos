@@ -53,11 +53,40 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
+  // Logs in, then fetches the profile and updates context state
+  // BEFORE returning, so ProtectedRoute sees the correct session
+  // immediately on the very first navigation attempt.
+  async function login({ email, password }) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    setSession(data.session)
+
+    const userProfile = await getUserById(data.user.id)
+    setProfile(userProfile)
+
+    return userProfile
+  }
+
+  async function logout() {
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      throw new Error(error.message)
+    }
+    setSession(null)
+    setProfile(null)
+  }
+
   const value = {
     session,
     profile,
     role: profile?.role || null,
     loading,
+    login,
+    logout,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

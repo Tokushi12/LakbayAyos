@@ -1,6 +1,7 @@
 package edu.cit.ballener.lakbayayos.Service;
 
 import edu.cit.ballener.lakbayayos.DTO.request.RegisterRequest;
+import edu.cit.ballener.lakbayayos.DTO.request.UpdateUserRequest;
 import edu.cit.ballener.lakbayayos.DTO.response.UserResponse;
 import edu.cit.ballener.lakbayayos.Entity.User;
 import edu.cit.ballener.lakbayayos.Exception.DuplicateEmailException;
@@ -39,5 +40,16 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("No user found with id: " + id));
         return UserMapper.toResponse(user);
+    }
+
+    public UserResponse updateUser(String id, UpdateUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("No user found with id: " + id));
+
+        user.setFullName(request.getFullName());
+        user.setPhoneNumber(request.getPhoneNumber());
+
+        User updated = userRepository.save(user);
+        return UserMapper.toResponse(updated);
     }
 }

@@ -12,3 +12,12 @@ export async function getUserById(id) {
   const response = await fetch(`${API_BASE_URL}/api/users/${id}`)
   return handleResponse(response)
 }
+
+export async function updateUser(id, { fullName, phoneNumber }) {
+  const response = await fetch(`${API_BASE_URL}/api/users/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fullName, phoneNumber }),
+  })
+  return handleResponse(response)
+}

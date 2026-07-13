@@ -1,13 +1,14 @@
 import { useNavigate, Link } from 'react-router-dom'
-import { logoutUser } from '../api/authApi'
+import { useAuth } from '../context/AuthContext'
 import './DashboardPage.css'
 
 export default function UserDashboardPage() {
   const navigate = useNavigate()
+  const { logout } = useAuth()
 
   async function handleLogout() {
     try {
-      await logoutUser()
+      await logout()
     } finally {
       navigate('/login')
     }
@@ -23,8 +24,8 @@ export default function UserDashboardPage() {
       </header>
 
       <main className="dashboard-main">
-        <p className="dashboard-eyebrow">Welcome</p>
         <h1 className="dashboard-title">Dashboard</h1>
+        <p className="dashboard-eyebrow">Welcome</p>
 
         <div className="dashboard-grid">
           <Link to="/parts" className="dashboard-card">

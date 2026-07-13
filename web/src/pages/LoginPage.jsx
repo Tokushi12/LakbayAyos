@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../components/AuthLayout'
-import { loginUser } from '../api/authApi'
+import { useAuth } from '../context/AuthContext'
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -16,8 +17,13 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      await loginUser({ email, password })
-      navigate('/dashboard')
+      const profile = await login({ email, password })
+
+      if (profile.role === 'admin') {
+        navigate('/admin/dashboard')
+      } else {
+        navigate('/dashboard')
+      }
     } catch (err) {
       setError(err.message || 'Incorrect email or password. Please try again.')
     } finally {
@@ -28,7 +34,7 @@ export default function LoginPage() {
   return (
     <AuthLayout
       activePage="login"
-      eyebrow="Step two of two"
+      eyebrow="Good to have you today!"
       title="Welcome back"
       description="Log in with the email and password you registered with."
       switchText="New here?"
