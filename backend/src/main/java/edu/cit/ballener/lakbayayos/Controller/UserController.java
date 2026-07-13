@@ -1,6 +1,7 @@
 package edu.cit.ballener.lakbayayos.Controller;
 
 import edu.cit.ballener.lakbayayos.DTO.request.RegisterRequest;
+import edu.cit.ballener.lakbayayos.DTO.request.UpdateUserRequest;
 import edu.cit.ballener.lakbayayos.DTO.response.UserResponse;
 import edu.cit.ballener.lakbayayos.Service.UserService;
 import jakarta.validation.Valid;
@@ -34,5 +35,12 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> updateUser(
+            @PathVariable String id,
+            @Valid @RequestBody UpdateUserRequest request) {
+        return ResponseEntity.ok(userService.updateUser(id, request));
     }
 }

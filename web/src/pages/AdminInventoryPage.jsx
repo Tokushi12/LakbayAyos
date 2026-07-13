@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { logoutUser } from '../api/authApi'
+import { useAuth } from '../context/AuthContext'
+import BackButton from '../components/BackButton'
 import {
   getAllParts,
   createPart,
@@ -12,6 +13,7 @@ import './AdminInventoryPage.css'
 
 export default function AdminInventoryPage() {
   const navigate = useNavigate()
+  const { logout } = useAuth()
   const [parts, setParts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -110,7 +112,7 @@ export default function AdminInventoryPage() {
 
   async function handleLogout() {
     try {
-      await logoutUser()
+      await logout()
     } finally {
       navigate('/login')
     }
@@ -126,11 +128,13 @@ export default function AdminInventoryPage() {
       </header>
 
       <main className="admin-main">
-        <div className="admin-header-row">
-          <div>
-            <p className="admin-eyebrow">Inventory</p>
-            <h1>Motor Parts</h1>
-          </div>
+        <BackButton />
+        <div className="page-header">
+          <h1>Motor Parts</h1>
+          <p className="admin-eyebrow">Inventory</p>
+        </div>
+
+        <div className="action-row">
           <button className="primary-btn" onClick={openAddForm}>
             + Add Part
           </button>

@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import BackButton from './BackButton'
 import './AuthLayout.css'
 
 export default function AuthLayout({ activePage, eyebrow, title, description, switchText, switchLinkText, switchLinkTo, children }) {
@@ -15,8 +16,9 @@ export default function AuthLayout({ activePage, eyebrow, title, description, sw
       <main>
         <div className="auth-grid">
           <div className="auth-intro">
-            <p className="eyebrow">{eyebrow}</p>
+            <BackButton />
             <h1>{title}</h1>
+            <p className="eyebrow">{eyebrow}</p>
             <p>{description}</p>
             <p className="switch">
               {switchText} <Link to={switchLinkTo}>{switchLinkText} &rarr;</Link>
