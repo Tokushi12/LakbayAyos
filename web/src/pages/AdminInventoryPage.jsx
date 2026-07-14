@@ -8,6 +8,7 @@ import {
   updatePart,
   updatePartAvailability,
   updatePartStock,
+  deletePart,
 } from '../api/partsApi'
 import { uploadPartImage } from '../api/storageApi'
 import './AdminInventoryPage.css'
@@ -21,6 +22,8 @@ export default function AdminInventoryPage() {
 
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState(null)
+  const [deleteTarget, setDeleteTarget] = useState(null)
+  const [deleting, setDeleting] = useState(false)
   const [name, setName] = useState('')
   const [category, setCategory] = useState('')
   const [stockQuantity, setStockQuantity] = useState('')
@@ -127,6 +130,24 @@ export default function AdminInventoryPage() {
     }
   }
 
+  function handleDeletePart(part) {
+    setDeleteTarget(part)
+  }
+
+  async function confirmDeletePart() {
+    if (!deleteTarget) return
+    setDeleting(true)
+    try {
+      await deletePart(deleteTarget.id)
+      setDeleteTarget(null)
+      await loadParts()
+    } catch (err) {
+      setError(err.message || 'Failed to delete part.')
+    } finally {
+      setDeleting(false)
+    }
+  }
+
   async function handleStockChange(part, newStock) {
     if (newStock < 0) return
     try {
@@ -222,6 +243,12 @@ export default function AdminInventoryPage() {
                     <button className="link-btn" onClick={() => openEditForm(part)}>
                       Edit
                     </button>
+                    <button
+                      className="link-btn delete-link-btn"
+                      onClick={() => handleDeletePart(part)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -307,6 +334,34 @@ export default function AdminInventoryPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {deleteTarget && (
+        <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <h2>Delete Part</h2>
+            <p className="delete-confirm-text">
+              Delete "{deleteTarget.name}"? This cannot be undone.
+            </p>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="secondary-btn"
+                onClick={() => setDeleteTarget(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn delete-confirm-btn"
+                onClick={confirmDeletePart}
+                disabled={deleting}
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
           </div>
         </div>
       )}

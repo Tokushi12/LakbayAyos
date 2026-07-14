@@ -11,7 +11,7 @@ object ApiClient {
     // 10.0.2.2 is the emulator's special alias for your computer's localhost.
     // If you switch to a physical phone on the same Wi-Fi later, replace this
     // with your computer's actual local network IP, e.g. "http://192.168.1.5:8080/"
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private const val BASE_URL = "http://10.0.2.2:8081/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

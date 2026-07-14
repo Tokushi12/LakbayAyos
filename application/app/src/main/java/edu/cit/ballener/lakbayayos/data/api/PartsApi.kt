@@ -3,6 +3,7 @@ package edu.cit.ballener.lakbayayos.data.api
 import edu.cit.ballener.lakbayayos.data.model.Part
 import edu.cit.ballener.lakbayayos.data.model.PartRequest
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.PUT
@@ -34,4 +35,7 @@ interface PartsApi {
 
     @PATCH("/api/parts/{id}/stock")
     suspend fun updateStock(@Path("id") id: Long, @Body body: Map<String, Int>): Part
+
+    @DELETE("/api/parts/{id}")
+    suspend fun deletePart(@Path("id") id: Long)
 }
