@@ -275,9 +275,20 @@
   text-decoration-color: #E10600;
   text-underline-offset: 3px;
   cursor: pointer;
+  margin-right: 12px;
 }
 
 .link-btn:hover {
+  color: #E10600;
+}
+
+.delete-link-btn {
+  color: #FF4D4D;
+  text-decoration-color: #FF4D4D;
+  margin-right: 0;
+}
+
+.delete-link-btn:hover {
   color: #E10600;
 }
 
@@ -308,6 +319,23 @@
   font-weight: 700;
   margin-bottom: 24px;
   color: #F5F5F5;
+}
+
+.delete-confirm-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  color: #9A9A9A;
+  margin-bottom: 24px;
+}
+
+.delete-confirm-btn {
+  background: #E10600;
+  border-color: #E10600;
+}
+
+.delete-confirm-btn:hover:not(:disabled) {
+  background: #FF4D4D;
+  border-color: #FF4D4D;
 }
 
 .field {
@@ -413,4 +441,10 @@
 .modal-actions .btn {
   flex: 1;
   width: auto;
+}
+
+.wordmark-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.LakbayAyos" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Shown instantly on cold start, before Compose has loaded -->
+    <style name="Theme.LakbayAyos.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.LakbayAyos</item>
+    </style>
+
+    <!-- Normal app theme, applied after the splash screen dismisses -->
+    <style name="Theme.LakbayAyos" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/splash_black</item>
+    </style>
+
 </resources>
