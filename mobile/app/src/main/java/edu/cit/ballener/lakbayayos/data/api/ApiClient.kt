@@ -8,10 +8,16 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
-    // 10.0.2.2 is the emulator's special alias for your computer's localhost.
-    // If you switch to a physical phone on the same Wi-Fi later, replace this
-    // with your computer's actual local network IP, e.g. "http://192.168.1.5:8080/"
-    private const val BASE_URL = "http://10.0.2.2:8081/"
+    // para mu gamit na sa backend
+    private const val USE_DEPLOYED_BACKEND = true
+
+    // para rani sa emulator
+    private const val LOCAL_BASE_URL = "http://10.0.2.2:8080/"
+
+    // iyang actual deployed nga backend url
+    private const val DEPLOYED_BASE_URL = "https://lakbayayos-app.onrender.com/"
+
+    private val BASE_URL = if (USE_DEPLOYED_BACKEND) DEPLOYED_BASE_URL else LOCAL_BASE_URL
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
